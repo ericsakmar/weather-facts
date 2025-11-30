@@ -4,18 +4,15 @@ import "./style.css";
 import Alpine from "alpinejs";
 
 window.Alpine = Alpine;
-Alpine.start();
 
-getLocation()
-  .then((location) => {
-    return getForecast(location.latitude, location.longitude);
-  })
-  .then((forecast) => {
-    return formatForecast(forecast);
-  })
-  .then((data) => {
-    console.log(data);
-  })
-  .catch((error) => {
-    console.error(error.message);
-  });
+Alpine.data("weather", () => ({
+  forecast: {},
+
+  async init() {
+    const location = await getLocation();
+    const forecast = await getForecast(location.latitude, location.longitude);
+    this.forecast = formatForecast(forecast);
+  },
+}));
+
+Alpine.start();
