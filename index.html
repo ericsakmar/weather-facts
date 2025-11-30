@@ -7,12 +7,24 @@
     <title>weather</title>
   </head>
   <body>
-    <div x-data="{ title: 'Hello Alpine!' }">
-      <h1 x-text="title"></h1>
-    </div>
+    <header>
+      <h1>Forecast, hmm</h1>
+    </header>
 
-    <div x-data="weather" x-init="init()">
-      <span x-text="forecast?.current.temperature"></span>
+    <div x-data="weather" x-init="await init()">
+      <div x-show="loading">Loading...</div>
+      <div x-show="error" x-text="error"></div>
+
+      <template x-if="current">
+        <h2>Currently</h2>
+        <p x-text="current.temperature"></p>
+        <p x-text="current.description"></p>
+      </template>
+
+      <template x-if="daily">
+        <h2>Daily</h2>
+        <p x-text="daily.date"></p>
+      </template>
     </div>
 
     <script type="module" src="/src/main.js"></script>

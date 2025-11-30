@@ -1,4 +1,7 @@
+import { formatISO } from "date-fns";
 import { fetchWeatherApi } from "openmeteo";
+
+const getDate = (date) => formatISO(date, { representation: "date" });
 
 export const formatForecast = (weatherData) => {
   const current = {
@@ -11,8 +14,22 @@ export const formatForecast = (weatherData) => {
     windSpeed: weatherData.current.wind_speed_10m,
   };
 
+  const daily = weatherData.daily.time.map((time, index) => {
+    return {
+      date: getDate(new Date(time)),
+      temperatureMax: weatherData.daily.temperature_2m_max[index],
+      temperatureMin: weatherData.daily.temperature_2m_min[index],
+      apparentTemperatureMax: weatherData.daily.apparent_temperature_max[index],
+      apparentTemperatureMin: weatherData.daily.apparent_temperature_min[index],
+      windSpeedMax: weatherData.daily.wind_speed_10m_max[index],
+      description: getDescriptionFromWeatherCode(
+        weatherData.daily.weather_code[index],
+      ),
+    };
+  });
+
   const hourly = weatherData.hourly.time.map((time, index) => ({
-    time,
+    time: new Date(time),
     temperature: weatherData.hourly.temperature_2m[index],
     relativeHumidity: weatherData.hourly.relative_humidity_2m[index],
     temperatureApparent: weatherData.hourly.apparent_temperature[index],
@@ -21,18 +38,6 @@ export const formatForecast = (weatherData) => {
     precipitation: weatherData.hourly.precipitation[index],
     description: getDescriptionFromWeatherCode(
       weatherData.hourly.weather_code[index],
-    ),
-  }));
-
-  const daily = weatherData.daily.time.map((time, index) => ({
-    time,
-    temperatureMax: weatherData.daily.temperature_2m_max[index],
-    temperatureMin: weatherData.daily.temperature_2m_min[index],
-    apparentTemperatureMax: weatherData.daily.apparent_temperature_max[index],
-    apparentTemperatureMin: weatherData.daily.apparent_temperature_min[index],
-    windSpeedMax: weatherData.daily.wind_speed_10m_max[index],
-    description: getDescriptionFromWeatherCode(
-      weatherData.daily.weather_code[index],
     ),
   }));
 
@@ -123,7 +128,7 @@ export const getForecast = async (latitude, longitude) => {
   // Note: The order of weather variables in the URL query and the indices below need to match
   const weatherData = {
     current: {
-      time: new Date((Number(current.time()) + utcOffsetSeconds) * 1000),
+      time: new Date(Number(current.time()) * 1000),
       temperature_2m: current.variables(0).value(),
       relative_humidity_2m: current.variables(1).value(),
       apparent_temperature: current.variables(2).value(),
@@ -138,10 +143,7 @@ export const getForecast = async (latitude, longitude) => {
             hourly.interval(),
         },
         (_, i) =>
-          new Date(
-            (Number(hourly.time()) + i * hourly.interval() + utcOffsetSeconds) *
-              1000,
-          ),
+          new Date((Number(hourly.time()) + i * hourly.interval()) * 1000),
       ),
       temperature_2m: hourly.variables(0).valuesArray(),
       relative_humidity_2m: hourly.variables(1).valuesArray(),
@@ -157,10 +159,7 @@ export const getForecast = async (latitude, longitude) => {
             (Number(daily.timeEnd()) - Number(daily.time())) / daily.interval(),
         },
         (_, i) =>
-          new Date(
-            (Number(daily.time()) + i * daily.interval() + utcOffsetSeconds) *
-              1000,
-          ),
+          new Date((Number(daily.time()) + i * daily.interval()) * 1000),
       ),
       weather_code: daily.variables(0).valuesArray(),
       temperature_2m_max: daily.variables(1).valuesArray(),
