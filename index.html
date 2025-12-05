@@ -177,8 +177,7 @@
             <template x-for="hour in hourly">
               <div class="hourly-item">
                 <div x-text="formatHour(hour.time)"></div>
-
-                <i :class="`wi ${hour.icon}`"></i>
+                <div x-text="hour.description" class="hourly-description"></div>
 
                 <div>
                   <div>
