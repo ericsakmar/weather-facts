@@ -1,11 +1,6 @@
-::root {
-  --background-color: #f0f0f0;
-  --text-color: #333333;
-  --primary-color: #4a90e2;
-  --secondary-color: #50e3c2;
-  --font-family: "Montserrat", sans-serif;
-}
+/* Nutrition Label Style */
 
+/* Basic Reset & Body */
 * {
   margin: 0;
   padding: 0;
@@ -13,13 +8,135 @@
 }
 
 body {
-  font-family: "Montserrat", sans-serif;
-  background-color: var(--background-color);
-  color: var(--text-color);
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background-color: #e2e8f0; /* A neutral, boring background */
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   min-height: 100vh;
-  padding: 1rem;
+  padding: 2rem;
 }
 
+/* Main Label Container */
+.app {
+  background-color: #fff;
+  border: 3px solid #000;
+  padding: 1rem;
+  width: 100%;
+  max-width: 320px;
+  position: relative;
+}
+
+/* "Weather Facts" Title */
+.app::before {
+  content: 'Weather Facts';
+  display: block;
+  font-size: 2.5rem;
+  font-weight: 900;
+  letter-spacing: -1px;
+  margin-bottom: 0.5rem;
+  border-bottom: 10px solid #000;
+  padding-bottom: 0.25rem;
+}
+
+/* Hide loading/error for now */
+[x-show="loading"],
+[x-show="error"] {
+  display: none;
+}
+
+/* Section Styling */
+.app > div {
+  border-top: 1px solid #000;
+  padding: 0.5rem 0;
+}
+
+h2 {
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+/* First h2 doesn't need a top border on its container */
+.app > template[x-if="current"] + div {
+  border-top: none;
+}
+.app > div:has(> h2) {
+  border-top: 5px solid #000;
+  margin-top: 0.5rem;
+}
+
+
+p {
+  font-size: 0.9rem;
+  line-height: 1.4;
+  padding-left: 1rem; /* Indent sub-information */
+  text-transform: capitalize;
+}
+
+/* Temperature Styling */
+[x-temperature] {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 1rem;
+  padding-left: 0;
+  text-transform: none;
+}
+
+[x-temperature]:after {
+  content: '°F';
+  font-weight: 400;
+}
+
+/* Specific labels for temperatures */
+[x-temperature].current-temp::before {
+  content: 'Temp';
+}
+
+p[x-temperature][x-text^="daily.temperatureMax"]::before {
+    content: 'Max Temp';
+}
+p[x-temperature][x-text^="daily.temperatureMin"]::before {
+    content: 'Min Temp';
+}
+p[x-temperature][x-text^="amCommute.temperature"]::before,
+p[x-temperature][x-text^="pmCommute.temperature"]::before {
+    content: 'Temp';
+}
+
+
+/* Date Styling */
+p[x-text$=".date"] {
+    font-weight: 700;
+    padding-left: 0;
+}
+
+
+/* Button Styles */
+.app > div:last-child {
+  border-top: 5px solid #000;
+  padding-top: 1rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+button {
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  background-color: #fff;
+  color: #000;
+  border: 2px solid #000;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+button:hover {
+  background-color: #000;
+  color: #fff;
+}
