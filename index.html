@@ -7,19 +7,15 @@
     <title>weather</title>
   </head>
   <body>
-    <header>
-      <h1>Forecast, hmm</h1>
-    </header>
-
-    <div x-data="weather" x-init="init()">
+    <div x-data="weather" x-init="init()" class="app">
       <div x-show="loading">Loading...</div>
       <div x-show="error" x-text="error"></div>
 
       <template x-if="current">
         <div>
           <h2>Currently</h2>
-          <p x-text="current.temperature"></p>
           <p x-text="current.description"></p>
+          <p x-temperature="current.temperature"></p>
         </div>
       </template>
 
@@ -28,10 +24,33 @@
           <h2>Daily</h2>
           <p x-text="daily.date"></p>
           <p x-text="daily.description"></p>
-          <p x-text="daily.temperatureMax"></p>
-          <p x-text="daily.temperatureMin"></p>
+          <p x-temperature="daily.temperatureMax"></p>
+          <p x-temperature="daily.temperatureMin"></p>
         </div>
       </template>
+
+      <template x-if="amCommute">
+        <div>
+          <h2>AM Commute</h2>
+          <p x-text="amCommute.date"></p>
+          <p x-text="amCommute.description"></p>
+          <p x-temperature="amCommute.temperature"></p>
+        </div>
+      </template>
+
+      <template x-if="pmCommute">
+        <div>
+          <h2>PM Commute</h2>
+          <p x-text="pmCommute.date"></p>
+          <p x-text="pmCommute.description"></p>
+          <p x-temperature="pmCommute.temperature"></p>
+        </div>
+      </template>
+
+      <div>
+        <button @click="previousDay()">Previous</button>
+        <button @click="nextDay()">Next</button>
+      </div>
     </div>
 
     <script type="module" src="/src/main.js"></script>

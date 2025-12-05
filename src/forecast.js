@@ -3,7 +3,7 @@ import { fetchWeatherApi } from "openmeteo";
 
 const getDate = (date) => formatISO(date, { representation: "date" });
 
-export const formatForecast = (weatherData) => {
+const formatForecast = (weatherData) => {
   const current = {
     temperature: weatherData.current.temperature_2m,
     relativeHumidity: weatherData.current.relative_humidity_2m,
@@ -29,7 +29,7 @@ export const formatForecast = (weatherData) => {
   });
 
   const hourly = weatherData.hourly.time.map((time, index) => ({
-    time: new Date(time),
+    time,
     temperature: weatherData.hourly.temperature_2m[index],
     relativeHumidity: weatherData.hourly.relative_humidity_2m[index],
     temperatureApparent: weatherData.hourly.apparent_temperature[index],
@@ -80,7 +80,7 @@ const getDescriptionFromWeatherCode = (code) => {
   return weatherCodes[code];
 };
 
-export const getForecast = async (latitude, longitude) => {
+const fetchForecast = async (latitude, longitude) => {
   const params = {
     latitude,
     longitude,
@@ -117,9 +117,6 @@ export const getForecast = async (latitude, longitude) => {
 
   // Process first location. Add a for-loop for multiple locations or weather models
   const response = responses[0];
-
-  // Attributes for timezone and location
-  const utcOffsetSeconds = response.utcOffsetSeconds();
 
   const current = response.current();
   const hourly = response.hourly();
@@ -172,3 +169,52 @@ export const getForecast = async (latitude, longitude) => {
 
   return weatherData;
 };
+
+function getFromCache(key) {
+  const cached = localStorage.getItem(key);
+  if (!cached) return null;
+
+  const parsed = JSON.parse(cached);
+
+  const now = Date.now();
+  if (now - parsed.timestamp > 15 * 60 * 1000) {
+    // Cache valid for 15 minutes
+    localStorage.removeItem(key);
+    return null;
+  }
+
+  const parsedDates = {
+    ...parsed.data,
+    hourly: parsed.data.hourly.map((h) => ({
+      ...h,
+      time: new Date(h.time),
+    })),
+  };
+
+  return parsedDates;
+}
+
+function setInCache(key, data) {
+  const toCache = {
+    timestamp: Date.now(),
+    data,
+  };
+  localStorage.setItem(key, JSON.stringify(toCache));
+}
+
+function generateCacheKey(latitude, longitude) {
+  return `forecast_${latitude.toFixed(4)}_${longitude.toFixed(4)}`;
+}
+
+export async function getForecast(latitude, longitude) {
+  const cacheKey = generateCacheKey(latitude, longitude);
+  const cached = getFromCache(cacheKey);
+  if (cached) {
+    return cached;
+  }
+
+  const weatherData = await fetchForecast(latitude, longitude);
+  const formatted = formatForecast(weatherData);
+  setInCache(cacheKey, formatted);
+  return formatted;
+}
