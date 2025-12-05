@@ -25,32 +25,7 @@ Alpine.data("weather", () => ({
 
       this.allData = data;
       this.current = data.current;
-      this.daily = data.daily[this.dailyIndex];
-
-      const selectedDate = parseISO(this.daily.date);
-
-      // could this go in its own thing?
-      const amCommuteTime = set(selectedDate, {
-        hours: 7,
-        minutes: 0,
-        seconds: 0,
-        milliseconds: 0,
-      });
-
-      this.amCommute = data.hourly.find((d) => {
-        return d.time.getTime() === amCommuteTime.getTime();
-      });
-
-      const pmCommuteTime = set(selectedDate, {
-        hours: 17,
-        minutes: 0,
-        seconds: 0,
-        milliseconds: 0,
-      });
-
-      this.pmCommute = data.hourly.find((d) => {
-        return d.time.getTime() === pmCommuteTime.getTime();
-      });
+      this.setDay(this.dailyIndex);
     } catch (e) {
       this.error = "Unable to retrieve weather data.";
       console.error(e);
@@ -67,7 +42,6 @@ Alpine.data("weather", () => ({
 
     this.dailyIndex = index;
     this.daily = this.allData.daily[this.dailyIndex];
-    console.log(this.daily.date);
 
     const selectedDate = parseISO(this.daily.date);
 
@@ -101,36 +75,31 @@ Alpine.data("weather", () => ({
   previousDay() {
     this.setDay(this.dailyIndex - 1);
   },
+
+  formatTemperature(value) {
+    return `${Math.round(value)}°`;
+  },
+
+  formatHumidity(value) {
+    return `${Math.round(value)}%`;
+  },
+
+  formatWind(value) {
+    return `${Math.round(value)} mph`;
+  },
+
+  formatLongDate(rawDate) {
+    const date = parseISO(rawDate);
+    return date.toLocaleDateString(undefined, {
+      weekday: "short",
+      month: "short",
+      day: "numeric",
+    });
+  },
+
+  formatProbability(value) {
+    return `${Math.round(value)}%`;
+  },
 }));
-
-Alpine.directive("temperature", (el, { expression }, { evaluate }) => {
-  const value = evaluate(expression);
-  el.textContent = `${Math.round(value)}°`;
-});
-
-Alpine.directive("humidity", (el, { expression }, { evaluate }) => {
-  const value = evaluate(expression);
-  el.textContent = `${Math.round(value)}%`;
-});
-
-Alpine.directive("wind", (el, { expression }, { evaluate }) => {
-  const value = evaluate(expression);
-  el.textContent = `${Math.round(value)} mph`;
-});
-
-Alpine.directive("long-date", (el, { expression }, { evaluate }) => {
-  const rawDate = evaluate(expression);
-  const date = new Date(rawDate);
-  el.textContent = date.toLocaleDateString(undefined, {
-    weekday: "short",
-    month: "short",
-    day: "numeric",
-  });
-});
-
-Alpine.directive("probability", (el, { expression }, { evaluate }) => {
-  const value = evaluate(expression);
-  el.textContent = `${Math.round(value)}%`;
-});
 
 Alpine.start();

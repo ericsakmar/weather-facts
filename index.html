@@ -31,22 +31,24 @@
             <tr>
               <th>Temperature</th>
               <td>
-                <span x-temperature="current.temperature"></span>
+                <span x-text="formatTemperature(current.temperature)"></span>
                 <span class="sub-info">
                   /
-                  <span x-temperature="current.temperatureApparent"></span>
+                  <span
+                    x-text="formatTemperature(current.temperatureApparent)"
+                  ></span>
                 </span>
               </td>
             </tr>
 
             <tr>
               <th>Humidity</th>
-              <td x-humidity="current.relativeHumidity"></td>
+              <td x-text="formatHumidity(current.relativeHumidity)"></td>
             </tr>
 
             <tr>
               <th>Wind</th>
-              <td x-wind="current.windSpeed"></td>
+              <td x-text="formatWind(current.windSpeed)"></td>
             </tr>
           </table>
         </div>
@@ -55,7 +57,7 @@
       <template x-if="daily">
         <div class="section">
           <div class="section-header">
-            <h2 x-long-date="daily.date"></h2>
+            <h2 x-text="formatLongDate(daily.date)"></h2>
             <p x-text="daily.description"></p>
           </div>
 
@@ -63,10 +65,12 @@
             <tr>
               <th>High</th>
               <td>
-                <span x-temperature="daily.temperatureMax"></span>
+                <span x-text="formatTemperature(daily.temperatureMax)"></span>
                 <span class="sub-info">
                   /
-                  <span x-temperature="daily.apparentTemperatureMax"></span>
+                  <span
+                    x-text="formatTemperature(daily.apparentTemperatureMax)"
+                  ></span>
                 </span>
               </td>
             </tr>
@@ -74,10 +78,12 @@
             <tr>
               <th>Low</th>
               <td>
-                <span x-temperature="daily.temperatureMin"></span>
+                <span x-text="formatTemperature(daily.temperatureMin)"></span>
                 <span class="sub-info">
                   /
-                  <span x-temperature="daily.apparentTemperatureMin"></span>
+                  <span
+                    x-text="formatTemperature(daily.apparentTemperatureMin)"
+                  ></span>
                 </span>
               </td>
             </tr>
@@ -92,17 +98,21 @@
             <tr>
               <th>Temperature</th>
               <td>
-                <span x-temperature="amCommute.temperature"></span>
+                <span x-text="formatTemperature(amCommute.temperature)"></span>
                 <span class="sub-info">
                   /
-                  <span x-temperature="amCommute.temperatureApparent"></span>
+                  <span
+                    x-text="formatTemperature(amCommute.temperatureApparent)"
+                  ></span>
                 </span>
               </td>
             </tr>
 
             <tr>
               <th>Precipitation</th>
-              <td x-probability="amCommute.precipitationProbability"></td>
+              <td
+                x-text="formatProbability(amCommute.precipitationProbability)"
+              ></td>
             </tr>
           </table>
 
@@ -115,17 +125,21 @@
             <tr>
               <th>Temperature</th>
               <td>
-                <span x-temperature="pmCommute.temperature"></span>
+                <span x-text="formatTemperature(pmCommute.temperature)"></span>
                 <span class="sub-info">
                   /
-                  <span x-temperature="pmCommute.temperatureApparent"></span>
+                  <span
+                    x-text="formatTemperature(pmCommute.temperatureApparent)"
+                  ></span>
                 </span>
               </td>
             </tr>
 
             <tr>
               <th>Precipitation</th>
-              <td x-probability="pmCommute.precipitationProbability"></td>
+              <td
+                x-text="formatProbability(pmCommute.precipitationProbability)"
+              ></td>
             </tr>
           </table>
         </div>
