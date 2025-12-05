@@ -87,6 +87,13 @@
                 </span>
               </td>
             </tr>
+
+            <tr>
+              <th>Precipitation</th>
+              <td
+                x-text="formatProbability(daily.precipitationProbability)"
+              ></td>
+            </tr>
           </table>
 
           <div class="section-header section-header_sub">
@@ -106,6 +113,11 @@
                   ></span>
                 </span>
               </td>
+            </tr>
+
+            <tr>
+              <th>Humidity</th>
+              <td x-text="formatHumidity(amCommute.relativeHumidity)"></td>
             </tr>
 
             <tr>
@@ -133,6 +145,11 @@
                   ></span>
                 </span>
               </td>
+            </tr>
+
+            <tr>
+              <th>Humidity</th>
+              <td x-text="formatHumidity(pmCommute.relativeHumidity)"></td>
             </tr>
 
             <tr>

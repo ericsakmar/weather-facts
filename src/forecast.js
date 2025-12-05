@@ -25,6 +25,8 @@ const formatForecast = (weatherData) => {
       description: getDescriptionFromWeatherCode(
         weatherData.daily.weather_code[index],
       ),
+      precipitationProbability:
+        weatherData.daily.precipitation_probability_mean[index],
     };
   });
 
@@ -91,6 +93,7 @@ const fetchForecast = async (latitude, longitude) => {
       "apparent_temperature_max",
       "apparent_temperature_min",
       "wind_speed_10m_max",
+      "precipitation_probability_mean",
     ],
     hourly: [
       "temperature_2m",
@@ -164,6 +167,7 @@ const fetchForecast = async (latitude, longitude) => {
       apparent_temperature_max: daily.variables(3).valuesArray(),
       apparent_temperature_min: daily.variables(4).valuesArray(),
       wind_speed_10m_max: daily.variables(5).valuesArray(),
+      precipitation_probability_mean: daily.variables(6).valuesArray(),
     },
   };
 
