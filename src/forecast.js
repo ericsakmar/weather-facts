@@ -203,7 +203,7 @@ function setInCache(key, data) {
 }
 
 function generateCacheKey(latitude, longitude) {
-  return `forecast_${latitude.toFixed(4)}_${longitude.toFixed(4)}`;
+  return `forecast_${latitude.toFixed(2)}_${longitude.toFixed(2)}`;
 }
 
 export async function getForecast(latitude, longitude) {

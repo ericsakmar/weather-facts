@@ -107,4 +107,29 @@ Alpine.directive("temperature", (el, { expression }, { evaluate }) => {
   el.textContent = `${Math.round(value)}°`;
 });
 
+Alpine.directive("humidity", (el, { expression }, { evaluate }) => {
+  const value = evaluate(expression);
+  el.textContent = `${Math.round(value)}%`;
+});
+
+Alpine.directive("wind", (el, { expression }, { evaluate }) => {
+  const value = evaluate(expression);
+  el.textContent = `${Math.round(value)} mph`;
+});
+
+Alpine.directive("long-date", (el, { expression }, { evaluate }) => {
+  const rawDate = evaluate(expression);
+  const date = new Date(rawDate);
+  el.textContent = date.toLocaleDateString(undefined, {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+  });
+});
+
+Alpine.directive("probability", (el, { expression }, { evaluate }) => {
+  const value = evaluate(expression);
+  el.textContent = `${Math.round(value)}%`;
+});
+
 Alpine.start();

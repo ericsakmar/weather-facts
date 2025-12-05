@@ -8,7 +8,7 @@
 }
 
 body {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   background-color: #e2e8f0; /* A neutral, boring background */
   display: flex;
   justify-content: center;
@@ -17,19 +17,15 @@ body {
   padding: 2rem;
 }
 
-/* Main Label Container */
 .app {
   background-color: #fff;
   border: 3px solid #000;
   padding: 1rem;
   width: 100%;
   max-width: 320px;
-  position: relative;
 }
 
-/* "Weather Facts" Title */
-.app::before {
-  content: 'Weather Facts';
+.title {
   display: block;
   font-size: 2.5rem;
   font-weight: 900;
@@ -39,16 +35,29 @@ body {
   padding-bottom: 0.25rem;
 }
 
+.facts {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.facts-label {
+}
+
+.facts-label_sub {
+  padding-left: 1rem;
+}
+
+.facts-value {
+  text-align: right;
+  font-weight: 700;
+}
+
 /* Hide loading/error for now */
 [x-show="loading"],
 [x-show="error"] {
   display: none;
-}
-
-/* Section Styling */
-.app > div {
-  border-top: 1px solid #000;
-  padding: 0.5rem 0;
 }
 
 h2 {
@@ -58,65 +67,14 @@ h2 {
   margin-bottom: 0.25rem;
 }
 
-/* First h2 doesn't need a top border on its container */
-.app > template[x-if="current"] + div {
-  border-top: none;
-}
-.app > div:has(> h2) {
+.section {
   border-top: 5px solid #000;
   margin-top: 0.5rem;
+  padding-top: 0.5rem;
 }
-
-
-p {
-  font-size: 0.9rem;
-  line-height: 1.4;
-  padding-left: 1rem; /* Indent sub-information */
-  text-transform: capitalize;
-}
-
-/* Temperature Styling */
-[x-temperature] {
-  display: flex;
-  justify-content: space-between;
-  font-weight: 700;
-  font-size: 1rem;
-  padding-left: 0;
-  text-transform: none;
-}
-
-[x-temperature]:after {
-  content: '°F';
-  font-weight: 400;
-}
-
-/* Specific labels for temperatures */
-[x-temperature].current-temp::before {
-  content: 'Temp';
-}
-
-p[x-temperature][x-text^="daily.temperatureMax"]::before {
-    content: 'Max Temp';
-}
-p[x-temperature][x-text^="daily.temperatureMin"]::before {
-    content: 'Min Temp';
-}
-p[x-temperature][x-text^="amCommute.temperature"]::before,
-p[x-temperature][x-text^="pmCommute.temperature"]::before {
-    content: 'Temp';
-}
-
-
-/* Date Styling */
-p[x-text$=".date"] {
-    font-weight: 700;
-    padding-left: 0;
-}
-
 
 /* Button Styles */
-.app > div:last-child {
-  border-top: 5px solid #000;
+.actions {
   padding-top: 1rem;
   display: flex;
   gap: 1rem;
@@ -133,10 +91,13 @@ button {
   padding: 0.5rem 1rem;
   cursor: pointer;
   text-transform: uppercase;
-  transition: background-color 0.2s, color 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
 }
 
 button:hover {
   background-color: #000;
   color: #fff;
 }
+
