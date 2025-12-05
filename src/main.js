@@ -1,4 +1,4 @@
-import { parseISO, set } from "date-fns";
+import { isBefore, isWeekend, parseISO, set } from "date-fns";
 import { getForecast } from "./forecast";
 import { getLocation } from "./location";
 import "./style.css";
@@ -43,6 +43,7 @@ Alpine.data("weather", () => ({
     this.dailyIndex = index;
     this.daily = this.allData.daily[this.dailyIndex];
 
+    const now = new Date();
     const selectedDate = parseISO(this.daily.date);
 
     const amCommuteTime = set(selectedDate, {
@@ -52,9 +53,12 @@ Alpine.data("weather", () => ({
       milliseconds: 0,
     });
 
-    this.amCommute = this.allData.hourly.find((d) => {
-      return d.time.getTime() === amCommuteTime.getTime();
-    });
+    this.amCommute =
+      isBefore(now, amCommuteTime) && !isWeekend(selectedDate)
+        ? this.allData.hourly.find((d) => {
+            return d.time.getTime() === amCommuteTime.getTime();
+          })
+        : null;
 
     const pmCommuteTime = set(selectedDate, {
       hours: 17,
@@ -63,9 +67,12 @@ Alpine.data("weather", () => ({
       milliseconds: 0,
     });
 
-    this.pmCommute = this.allData.hourly.find((d) => {
-      return d.time.getTime() === pmCommuteTime.getTime();
-    });
+    this.pmCommute =
+      isBefore(now, pmCommuteTime) && !isWeekend(selectedDate)
+        ? this.allData.hourly.find((d) => {
+            return d.time.getTime() === pmCommuteTime.getTime();
+          })
+        : null;
   },
 
   nextDay() {

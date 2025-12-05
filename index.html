@@ -96,69 +96,77 @@
             </tr>
           </table>
 
-          <div class="section-header section-header_sub">
-            <h3>AM Commute</h3>
-            <p x-text="amCommute.description"></p>
+          <div x-show="amCommute">
+            <div class="section-header section-header_sub">
+              <h3>AM Commute</h3>
+              <p x-text="amCommute?.description"></p>
+            </div>
+
+            <table class="facts">
+              <tr>
+                <th>Temperature</th>
+                <td>
+                  <span
+                    x-text="formatTemperature(amCommute?.temperature)"
+                  ></span>
+                  <span class="sub-info">
+                    /
+                    <span
+                      x-text="formatTemperature(amCommute?.temperatureApparent)"
+                    ></span>
+                  </span>
+                </td>
+              </tr>
+
+              <tr>
+                <th>Humidity</th>
+                <td x-text="formatHumidity(amCommute?.relativeHumidity)"></td>
+              </tr>
+
+              <tr>
+                <th>Precipitation</th>
+                <td
+                  x-text="formatProbability(amCommute?.precipitationProbability)"
+                ></td>
+              </tr>
+            </table>
           </div>
 
-          <table class="facts">
-            <tr>
-              <th>Temperature</th>
-              <td>
-                <span x-text="formatTemperature(amCommute.temperature)"></span>
-                <span class="sub-info">
-                  /
+          <div x-show="pmCommute">
+            <div class="section-header section-header_sub">
+              <h3>PM Commute</h3>
+              <p x-text="pmCommute?.description"></p>
+            </div>
+
+            <table class="facts">
+              <tr>
+                <th>Temperature</th>
+                <td>
                   <span
-                    x-text="formatTemperature(amCommute.temperatureApparent)"
+                    x-text="formatTemperature(pmCommute?.temperature)"
                   ></span>
-                </span>
-              </td>
-            </tr>
+                  <span class="sub-info">
+                    /
+                    <span
+                      x-text="formatTemperature(pmCommute?.temperatureApparent)"
+                    ></span>
+                  </span>
+                </td>
+              </tr>
 
-            <tr>
-              <th>Humidity</th>
-              <td x-text="formatHumidity(amCommute.relativeHumidity)"></td>
-            </tr>
+              <tr>
+                <th>Humidity</th>
+                <td x-text="formatHumidity(pmCommute?.relativeHumidity)"></td>
+              </tr>
 
-            <tr>
-              <th>Precipitation</th>
-              <td
-                x-text="formatProbability(amCommute.precipitationProbability)"
-              ></td>
-            </tr>
-          </table>
-
-          <div class="section-header section-header_sub">
-            <h3>PM Commute</h3>
-            <p x-text="pmCommute.description"></p>
+              <tr>
+                <th>Precipitation</th>
+                <td
+                  x-text="formatProbability(pmCommute?.precipitationProbability)"
+                ></td>
+              </tr>
+            </table>
           </div>
-
-          <table class="facts">
-            <tr>
-              <th>Temperature</th>
-              <td>
-                <span x-text="formatTemperature(pmCommute.temperature)"></span>
-                <span class="sub-info">
-                  /
-                  <span
-                    x-text="formatTemperature(pmCommute.temperatureApparent)"
-                  ></span>
-                </span>
-              </td>
-            </tr>
-
-            <tr>
-              <th>Humidity</th>
-              <td x-text="formatHumidity(pmCommute.relativeHumidity)"></td>
-            </tr>
-
-            <tr>
-              <th>Precipitation</th>
-              <td
-                x-text="formatProbability(pmCommute.precipitationProbability)"
-              ></td>
-            </tr>
-          </table>
         </div>
       </template>
 
