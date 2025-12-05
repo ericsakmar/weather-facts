@@ -1,4 +1,4 @@
-import { isBefore, isWeekend, parseISO, set } from "date-fns";
+import { format, isBefore, isWeekend, parseISO, set } from "date-fns";
 import { getForecast } from "./forecast";
 import { getLocation } from "./location";
 import "./style.css";
@@ -15,6 +15,7 @@ Alpine.data("weather", () => ({
   dailyIndex: 0,
   amCommute: null,
   pmCommute: null,
+  hourly: [],
 
   async init() {
     try {
@@ -73,6 +74,16 @@ Alpine.data("weather", () => ({
             return d.time.getTime() === pmCommuteTime.getTime();
           })
         : null;
+
+    // hourly
+    const isToday = this.dailyIndex === 0;
+    const startIndex = isToday
+      ? this.allData.hourly.findIndex((d) => {
+          return d.time > now;
+        })
+      : this.dailyIndex * 24 + 6;
+    const endIndex = startIndex + 24;
+    this.hourly = this.allData.hourly.slice(startIndex, endIndex);
   },
 
   nextDay() {
@@ -106,6 +117,10 @@ Alpine.data("weather", () => ({
 
   formatProbability(value) {
     return `${Math.round(value)}%`;
+  },
+
+  formatHour(date) {
+    return format(date, "haaa");
   },
 }));
 

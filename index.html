@@ -11,6 +11,7 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
+    <link href="/weather-icons/css/weather-icons.css" rel="stylesheet" />
   </head>
 
   <body>
@@ -166,6 +167,34 @@
                 ></td>
               </tr>
             </table>
+          </div>
+
+          <div class="section-header section-header_sub">
+            <h2>Hourly</h2>
+          </div>
+
+          <div class="hourly">
+            <template x-for="hour in hourly">
+              <div class="hourly-item">
+                <div x-text="formatHour(hour.time)"></div>
+
+                <i :class="`wi ${hour.icon}`"></i>
+
+                <div>
+                  <div>
+                    <span x-text="formatTemperature(hour.temperature)"></span
+                    ><span class="sub-info"
+                      >/<span
+                        x-text="formatTemperature(hour.temperatureApparent)"
+                      ></span
+                    ></span>
+                  </div>
+                  <div
+                    x-text="formatProbability(hour.precipitationProbability)"
+                  ></div>
+                </div>
+              </div>
+            </template>
           </div>
         </div>
       </template>

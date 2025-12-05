@@ -41,6 +41,7 @@ const formatForecast = (weatherData) => {
     description: getDescriptionFromWeatherCode(
       weatherData.hourly.weather_code[index],
     ),
+    icon: getIconFromWeatherCode(weatherData.hourly.weather_code[index]),
   }));
 
   return { current, hourly, daily };
@@ -82,6 +83,58 @@ const getDescriptionFromWeatherCode = (code) => {
   return weatherCodes[code];
 };
 
+const getIconFromWeatherCode = (code) => {
+  switch (code) {
+    case 0: // Clear sky
+    case 1: // Mainly clear
+      return "wi-day-sunny";
+    case 2: // Partly cloudy
+      return "wi-day-cloudy";
+    case 3: // Overcast
+      return "wi-day-sunny-overcast";
+    case 45: // Fog
+    case 48: // Depositing rime fog
+      return "wi-fog";
+    case 51: // Light drizzle
+    case 53: // Moderate drizzle
+      return "wi-sprinkle";
+    case 55: // Heavy drizzle
+      return "wi-showers";
+    case 56: // Light freezing drizzle
+    case 57: // Heavy freezing drizzle
+      return "wi-rain-mix";
+    case 61: // Light rain
+    case 63: // Moderate rain
+      return "wi-rain";
+    case 65: // Heavy rain
+      return "wi-rain-wind";
+    case 66: // Light freezing rain
+    case 67: // Heavy freezing rain
+      return "wi-rain-mix";
+    case 71: // Light snow
+    case 73: // Moderate snow
+    case 75: // Heavy snow
+    case 77: // Snow grains
+      return "wi-snow";
+    case 80: // Light rain showers
+    case 81: // Moderate rain showers
+      return "wi-showers";
+    case 82: // Heavy rain showers
+      return "wi-rain-wind";
+    case 85: // Light snow showers
+    case 86: // Heavy snow showers
+      return "wi-snow";
+    case 95: // Thunderstorm
+      return "wi-thunderstorm";
+    case 96: // Thunderstorm with light hail
+    case 99: // Thunderstorm with heavy hail
+      return "wi-hail";
+    default:
+      return "wi-na";
+  }
+
+  return weatherCodes[code];
+};
 const fetchForecast = async (latitude, longitude) => {
   const params = {
     latitude,

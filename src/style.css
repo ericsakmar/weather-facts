@@ -92,7 +92,6 @@ h3 {
   font-size: 0.9rem;
 }
 
-/* Button Styles */
 .actions {
   padding-top: 1rem;
   display: flex;
@@ -120,3 +119,25 @@ button:hover {
   color: #fff;
 }
 
+.hourly {
+  display: flex;
+  overflow-x: auto;
+  gap: 1rem;
+  margin-top: 0.5rem;
+  padding-bottom: 1rem;
+  font-size: 0.8rem;
+  padding-left: 0.5rem;
+}
+
+.hourly-item {
+  flex-shrink: 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.hourly-item i {
+  font-size: 20px;
+  margin-top: 0.5rem;
+  font-weight: 100;
+}
