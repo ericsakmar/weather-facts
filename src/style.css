@@ -36,41 +36,60 @@ body {
 }
 
 .facts {
-  display: grid;
-  grid-template-columns: auto 1fr;
   font-size: 0.9rem;
-  line-height: 1.4;
+  width: 100%;
+  padding-left: 0.5rem;
 }
 
-.facts-label {
+.facts th {
+  font-weight: 400;
+  text-align: left;
 }
 
-.facts-label_sub {
-  padding-left: 1rem;
-}
-
-.facts-value {
+.facts td {
   text-align: right;
   font-weight: 700;
 }
 
-/* Hide loading/error for now */
-[x-show="loading"],
-[x-show="error"] {
-  display: none;
+.sub-info {
+  font-weight: 400;
 }
 
 h2 {
   font-size: 1rem;
   font-weight: 700;
   text-transform: uppercase;
-  margin-bottom: 0.25rem;
+}
+
+h3 {
+  font-size: inherit;
+  font-weight: 400;
+}
+
+.description {
+  font-weight: 700;
 }
 
 .section {
   border-top: 5px solid #000;
   margin-top: 0.5rem;
   padding-top: 0.5rem;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.section-header p {
+  font-weight: 700;
+}
+
+.section-header_sub {
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid #000;
+  font-size: 0.9rem;
 }
 
 /* Button Styles */

@@ -67,6 +67,7 @@ Alpine.data("weather", () => ({
 
     this.dailyIndex = index;
     this.daily = this.allData.daily[this.dailyIndex];
+    console.log(this.daily.date);
 
     const selectedDate = parseISO(this.daily.date);
 

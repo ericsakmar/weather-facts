@@ -12,6 +12,7 @@
       rel="stylesheet"
     />
   </head>
+
   <body>
     <div x-data="weather" x-init="init()" class="app">
       <h1 class="title">Weather Facts</h1>
@@ -20,73 +21,113 @@
       <div x-show="error" x-text="error"></div>
 
       <template x-if="current">
-        <div class="facts">
-          <h2 class="facts-label">Currently</h2>
-          <p x-text="current.description" class="facts-value"></p>
+        <div>
+          <div class="section-header">
+            <h2 class="facts-label">Currently</h2>
+            <p x-text="current.description"></p>
+          </div>
 
-          <div class="facts-label facts-label_sub">Temperature</div>
-          <div x-temperature="current.temperature" class="facts-value"></div>
+          <table class="facts">
+            <tr>
+              <th>Temperature</th>
+              <td>
+                <span x-temperature="current.temperature"></span>
+                <span class="sub-info">
+                  /
+                  <span x-temperature="current.temperatureApparent"></span>
+                </span>
+              </td>
+            </tr>
 
-          <div class="facts-label facts-label_sub">Feels like</div>
-          <div
-            x-temperature="current.temperatureApparent"
-            class="facts-value"
-          ></div>
+            <tr>
+              <th>Humidity</th>
+              <td x-humidity="current.relativeHumidity"></td>
+            </tr>
 
-          <div class="facts-label facts-label_sub">Humidity</div>
-          <div x-humidity="current.relativeHumidity" class="facts-value"></div>
-
-          <div class="facts-label facts-label_sub">Wind</div>
-          <div x-wind="current.windSpeed" class="facts-value"></div>
+            <tr>
+              <th>Wind</th>
+              <td x-wind="current.windSpeed"></td>
+            </tr>
+          </table>
         </div>
       </template>
 
       <template x-if="daily">
-        <div class="facts section">
-          <h2 x-long-date="daily.date" class="facts-label"></h2>
-          <p x-text="daily.description" class="facts-value"></p>
+        <div class="section">
+          <div class="section-header">
+            <h2 x-long-date="daily.date"></h2>
+            <p x-text="daily.description"></p>
+          </div>
 
-          <div class="facts-label facts-label_sub">High</div>
-          <div x-temperature="daily.temperatureMax" class="facts-value"></div>
+          <table class="facts">
+            <tr>
+              <th>High</th>
+              <td>
+                <span x-temperature="daily.temperatureMax"></span>
+                <span class="sub-info">
+                  /
+                  <span x-temperature="daily.apparentTemperatureMax"></span>
+                </span>
+              </td>
+            </tr>
 
-          <div class="facts-label facts-label_sub">Low</div>
-          <div x-temperature="daily.temperatureMin" class="facts-value"></div>
+            <tr>
+              <th>Low</th>
+              <td>
+                <span x-temperature="daily.temperatureMin"></span>
+                <span class="sub-info">
+                  /
+                  <span x-temperature="daily.apparentTemperatureMin"></span>
+                </span>
+              </td>
+            </tr>
+          </table>
 
-          <div class="facts-label">AM Commute</div>
-          <div class="facts-value" x-text="amCommute.description"></div>
+          <div class="section-header section-header_sub">
+            <h3>AM Commute</h3>
+            <p x-text="amCommute.description"></p>
+          </div>
 
-          <div class="facts-label facts-label_sub">Temperature</div>
-          <div class="facts-value" x-temperature="amCommute.temperature"></div>
+          <table class="facts">
+            <tr>
+              <th>Temperature</th>
+              <td>
+                <span x-temperature="amCommute.temperature"></span>
+                <span class="sub-info">
+                  /
+                  <span x-temperature="amCommute.temperatureApparent"></span>
+                </span>
+              </td>
+            </tr>
 
-          <div class="facts-label facts-label_sub">Feels like</div>
-          <div
-            class="facts-value"
-            x-temperature="amCommute.temperatureApparent"
-          ></div>
+            <tr>
+              <th>Precipitation</th>
+              <td x-probability="amCommute.precipitationProbability"></td>
+            </tr>
+          </table>
 
-          <div class="facts-label facts-label_sub">Precipitation</div>
-          <div
-            class="facts-value"
-            x-probability="amCommute.precipitationProbability"
-          ></div>
+          <div class="section-header section-header_sub">
+            <h3>PM Commute</h3>
+            <p x-text="pmCommute.description"></p>
+          </div>
 
-          <div class="facts-label">PM Commute</div>
-          <div class="facts-value" x-text="pmCommute.description"></div>
+          <table class="facts">
+            <tr>
+              <th>Temperature</th>
+              <td>
+                <span x-temperature="pmCommute.temperature"></span>
+                <span class="sub-info">
+                  /
+                  <span x-temperature="pmCommute.temperatureApparent"></span>
+                </span>
+              </td>
+            </tr>
 
-          <div class="facts-label facts-label_sub">Temperature</div>
-          <div class="facts-value" x-temperature="pmCommute.temperature"></div>
-
-          <div class="facts-label facts-label_sub">Feels like</div>
-          <div
-            class="facts-value"
-            x-temperature="pmCommute.temperatureApparent"
-          ></div>
-
-          <div class="facts-label facts-label_sub">Precipitation</div>
-          <div
-            class="facts-value"
-            x-probability="pmCommute.precipitationProbability"
-          ></div>
+            <tr>
+              <th>Precipitation</th>
+              <td x-probability="pmCommute.precipitationProbability"></td>
+            </tr>
+          </table>
         </div>
       </template>
 
