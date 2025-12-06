@@ -119,13 +119,29 @@ button:hover {
   color: #fff;
 }
 
+.commute {
+  display: flex;
+  margin-top: 0.25rem;
+  margin-left: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.commute-am,
+.commute-pm {
+  flex-basis: 50%;
+}
+
+.commute-pm {
+  text-align: right;
+}
+
 .hourly {
   display: flex;
   overflow-x: auto;
   gap: 1rem;
   margin-top: 0.5rem;
   padding-bottom: 1rem;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   padding-left: 0.5rem;
 }
 

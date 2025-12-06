@@ -97,76 +97,52 @@
             </tr>
           </table>
 
-          <div x-show="amCommute">
+          <div x-show="amCommute || pmCommute">
             <div class="section-header section-header_sub">
-              <h3>AM Commute</h3>
-              <p x-text="amCommute?.description"></p>
+              <h2>Commute</h2>
             </div>
 
-            <table class="facts">
-              <tr>
-                <th>Temperature</th>
-                <td>
-                  <span
-                    x-text="formatTemperature(amCommute?.temperature)"
-                  ></span>
-                  <span class="sub-info">
+            <div class="commute">
+              <div class="commute-am">
+                <div
+                  x-text="formatHour(amCommute.time)"
+                  class="hourly-description"
+                ></div>
+                <div x-text="amCommute.description"></div>
+                <div>
+                  <span x-text="formatTemperature(amCommute.temperature)"></span
+                  ><span class="sub-info">
                     /
                     <span
-                      x-text="formatTemperature(amCommute?.temperatureApparent)"
-                    ></span>
-                  </span>
-                </td>
-              </tr>
+                      x-text="formatTemperature(amCommute.temperatureApparent)"
+                    ></span
+                  ></span>
+                </div>
+                <div
+                  x-text="formatProbability(amCommute.precipitationProbability)"
+                ></div>
+              </div>
 
-              <tr>
-                <th>Humidity</th>
-                <td x-text="formatHumidity(amCommute?.relativeHumidity)"></td>
-              </tr>
-
-              <tr>
-                <th>Precipitation</th>
-                <td
-                  x-text="formatProbability(amCommute?.precipitationProbability)"
-                ></td>
-              </tr>
-            </table>
-          </div>
-
-          <div x-show="pmCommute">
-            <div class="section-header section-header_sub">
-              <h3>PM Commute</h3>
-              <p x-text="pmCommute?.description"></p>
+              <div class="commute-pm">
+                <div
+                  x-text="formatHour(pmCommute.time)"
+                  class="hourly-description"
+                ></div>
+                <div x-text="pmCommute.description"></div>
+                <div>
+                  <span x-text="formatTemperature(pmCommute.temperature)"></span
+                  ><span class="sub-info">
+                    /
+                    <span
+                      x-text="formatTemperature(pmCommute.temperatureApparent)"
+                    ></span
+                  ></span>
+                </div>
+                <div
+                  x-text="formatProbability(pmCommute.precipitationProbability)"
+                ></div>
+              </div>
             </div>
-
-            <table class="facts">
-              <tr>
-                <th>Temperature</th>
-                <td>
-                  <span
-                    x-text="formatTemperature(pmCommute?.temperature)"
-                  ></span>
-                  <span class="sub-info">
-                    /
-                    <span
-                      x-text="formatTemperature(pmCommute?.temperatureApparent)"
-                    ></span>
-                  </span>
-                </td>
-              </tr>
-
-              <tr>
-                <th>Humidity</th>
-                <td x-text="formatHumidity(pmCommute?.relativeHumidity)"></td>
-              </tr>
-
-              <tr>
-                <th>Precipitation</th>
-                <td
-                  x-text="formatProbability(pmCommute?.precipitationProbability)"
-                ></td>
-              </tr>
-            </table>
           </div>
 
           <div class="section-header section-header_sub">
@@ -176,8 +152,11 @@
           <div class="hourly">
             <template x-for="hour in hourly">
               <div class="hourly-item">
-                <div x-text="formatHour(hour.time)"></div>
-                <div x-text="hour.description" class="hourly-description"></div>
+                <div
+                  x-text="formatHour(hour.time)"
+                  class="hourly-description"
+                ></div>
+                <div x-text="hour.description"></div>
 
                 <div>
                   <div>

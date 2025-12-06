@@ -54,12 +54,13 @@ Alpine.data("weather", () => ({
       milliseconds: 0,
     });
 
-    this.amCommute =
-      isBefore(now, amCommuteTime) && !isWeekend(selectedDate)
-        ? this.allData.hourly.find((d) => {
-            return d.time.getTime() === amCommuteTime.getTime();
-          })
-        : null;
+    this.amCommute = /*isBefore(now, amCommuteTime) &&*/ !isWeekend(
+      selectedDate,
+    )
+      ? this.allData.hourly.find((d) => {
+          return d.time.getTime() === amCommuteTime.getTime();
+        })
+      : null;
 
     const pmCommuteTime = set(selectedDate, {
       hours: 17,
@@ -68,12 +69,13 @@ Alpine.data("weather", () => ({
       milliseconds: 0,
     });
 
-    this.pmCommute =
-      isBefore(now, pmCommuteTime) && !isWeekend(selectedDate)
-        ? this.allData.hourly.find((d) => {
-            return d.time.getTime() === pmCommuteTime.getTime();
-          })
-        : null;
+    this.pmCommute = /* isBefore(now, pmCommuteTime) && */ !isWeekend(
+      selectedDate,
+    )
+      ? this.allData.hourly.find((d) => {
+          return d.time.getTime() === pmCommuteTime.getTime();
+        })
+      : null;
 
     // hourly
     const isToday = this.dailyIndex === 0;
