@@ -104,41 +104,45 @@
             <div class="commute">
               <div class="commute-am">
                 <div
-                  x-text="formatHour(amCommute.time)"
+                  x-text="formatHour(amCommute?.time)"
                   class="hourly-description"
                 ></div>
-                <div x-text="amCommute.description"></div>
+                <div x-text="amCommute?.description"></div>
                 <div>
-                  <span x-text="formatTemperature(amCommute.temperature)"></span
+                  <span
+                    x-text="formatTemperature(amCommute?.temperature)"
+                  ></span
                   ><span class="sub-info">
                     /
                     <span
-                      x-text="formatTemperature(amCommute.temperatureApparent)"
+                      x-text="formatTemperature(amCommute?.temperatureApparent)"
                     ></span
                   ></span>
                 </div>
                 <div
-                  x-text="formatProbability(amCommute.precipitationProbability)"
+                  x-text="formatProbability(amCommute?.precipitationProbability)"
                 ></div>
               </div>
 
               <div class="commute-pm">
                 <div
-                  x-text="formatHour(pmCommute.time)"
+                  x-text="formatHour(pmCommute?.time)"
                   class="hourly-description"
                 ></div>
-                <div x-text="pmCommute.description"></div>
+                <div x-text="pmCommute?.description"></div>
                 <div>
-                  <span x-text="formatTemperature(pmCommute.temperature)"></span
+                  <span
+                    x-text="formatTemperature(pmCommute?.temperature)"
+                  ></span
                   ><span class="sub-info">
                     /
                     <span
-                      x-text="formatTemperature(pmCommute.temperatureApparent)"
+                      x-text="formatTemperature(pmCommute?.temperatureApparent)"
                     ></span
                   ></span>
                 </div>
                 <div
-                  x-text="formatProbability(pmCommute.precipitationProbability)"
+                  x-text="formatProbability(pmCommute?.precipitationProbability)"
                 ></div>
               </div>
             </div>

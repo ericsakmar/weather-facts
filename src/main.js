@@ -122,7 +122,7 @@ Alpine.data("weather", () => ({
   },
 
   formatHour(date) {
-    return format(date, "haaa");
+    return date ? format(date, "haaa") : "";
   },
 }));
 
