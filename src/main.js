@@ -18,6 +18,8 @@ Alpine.data("weather", () => ({
   hourly: [],
 
   async init() {
+    this.setTheme();
+
     try {
       this.loading = true;
 
@@ -32,6 +34,15 @@ Alpine.data("weather", () => ({
       console.error(e);
     } finally {
       this.loading = false;
+    }
+  },
+
+  setTheme() {
+    if (
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+    ) {
+      document.documentElement.setAttribute("data-theme", "dark");
     }
   },
 

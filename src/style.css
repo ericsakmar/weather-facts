@@ -1,9 +1,17 @@
 :root {
-  --color-page-background: #e2e8f0;
+  --color-page-background: #83a598;
   --color-border: #000;
   --color-text: #000;
   --color-accent: #fff;
   --color-app-background: #fff;
+}
+
+[data-theme="dark"] {
+  --color-page-background: #282828;
+  --color-border: #ebdbb2;
+  --color-text: #ebdbb2;
+  --color-accent: #282828;
+  --color-app-background: #3c3836;
 }
 
 * {
@@ -23,6 +31,8 @@ body {
   align-items: flex-start;
   min-height: 100vh;
   padding: 2rem 1rem;
+  background-color: var(--color-app-background);
+  color: var(--color-text);
 }
 
 .app {
@@ -109,7 +119,7 @@ button {
   font-size: 1rem;
   font-weight: 700;
   background-color: var(--color-app-background);
-  color: #000;
+  color: var(--color-text);
   border: 2px solid var(--color-border);
   padding: 0.5rem 1rem;
   cursor: pointer;
