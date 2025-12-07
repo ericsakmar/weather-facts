@@ -113,6 +113,8 @@ Alpine.data("weather", () => ({
       : this.dailyIndex * 24 + 6;
     const endIndex = startIndex + 24;
     this.hourly = this.allData.hourly.slice(startIndex, endIndex);
+
+    this.$nextTick(() => (this.$refs.hourly.scrollLeft = 0));
   },
 
   nextDay() {
