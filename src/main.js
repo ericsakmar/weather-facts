@@ -1,3 +1,4 @@
+import { registerSW } from "virtual:pwa-register";
 import { format, isBefore, isWeekend, parseISO, set } from "date-fns";
 import { getForecast } from "./forecast";
 import { getLocation } from "./location";
@@ -5,6 +6,11 @@ import "./style.css";
 import Alpine from "alpinejs";
 
 window.Alpine = Alpine;
+
+// add this to the top of your main.js file
+if ("serviceWorker" in navigator) {
+  registerSW();
+}
 
 Alpine.data("weather", () => ({
   loading: false,
@@ -38,12 +44,17 @@ Alpine.data("weather", () => ({
   },
 
   setTheme() {
-    if (
-      window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches
-    ) {
-      document.documentElement.setAttribute("data-theme", "dark");
-    }
+    const setThemeColor = (isDark) => {
+      document.documentElement.setAttribute("data-theme", isDark ? "dark" : "light");
+      document.querySelector('meta[name="theme-color"]').setAttribute("content", isDark ? "#000000" : "#ffffff");
+    };
+
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    setThemeColor(mediaQuery.matches);
+
+    mediaQuery.addEventListener("change", (e) => {
+      setThemeColor(e.matches);
+    });
   },
 
   setDay(index) {
