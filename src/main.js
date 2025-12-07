@@ -45,8 +45,13 @@ Alpine.data("weather", () => ({
 
   setTheme() {
     const setThemeColor = (isDark) => {
-      document.documentElement.setAttribute("data-theme", isDark ? "dark" : "light");
-      document.querySelector('meta[name="theme-color"]').setAttribute("content", isDark ? "#000000" : "#ffffff");
+      document.documentElement.setAttribute(
+        "data-theme",
+        isDark ? "dark" : "light",
+      );
+      document
+        .querySelector('meta[name="theme-color"]')
+        .setAttribute("content", isDark ? "#000000" : "#ffffff");
     };
 
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");

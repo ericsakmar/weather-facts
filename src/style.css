@@ -1,17 +1,18 @@
 :root {
-  --color-page-background: #83a598;
-  --color-border: #000;
+  --color-page-background: #c6c6c6;
   --color-text: #000;
-  --color-accent: #fff;
+  --color-border: var(--color-text);
   --color-app-background: #fff;
+  --color-link: #21498a;
 }
 
+/* https://colorffy.com/dark-theme-generator?colors=d2c482-121212&success=22946E&warning=A87A2A&danger=9C2121&info=21498A&primaryCount=6&surfaceCount=6 */
 [data-theme="dark"] {
-  --color-page-background: #282828;
-  --color-border: #ebdbb2;
-  --color-text: #ebdbb2;
-  --color-accent: #282828;
-  --color-app-background: #3c3836;
+  --color-page-background: #121212;
+  --color-text: #ece4c7;
+  --color-border: var(--color-text);
+  --color-app-background: #282828;
+  --color-link: #92b2e5;
 }
 
 * {
@@ -27,12 +28,17 @@ html {
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: column;
+  align-items: center;
   min-height: 100vh;
   padding: 2rem 1rem;
   background-color: var(--color-app-background);
   color: var(--color-text);
+}
+
+a,
+a:visited {
+  color: var(--color-link);
 }
 
 .app {
@@ -176,6 +182,16 @@ button:hover {
   font-weight: 700;
 }
 
+.footer {
+  font-size: 0.6rem;
+  padding-top: 0.25rem;
+  text-align: center;
+  border-top: 5px solid var(--color-border);
+  margin-top: 1rem;
+  padding-top: 0.25rem;
+  width: 100%;
+}
+
 /* mobile first, so these are for larger than phone sized screens */
 @media (min-width: 480px) {
   html {
@@ -192,5 +208,12 @@ button:hover {
     padding: 1rem;
     width: 100%;
     max-width: 20rem;
+  }
+
+  .footer {
+    border-top: 0;
+    margin-top: 0;
+    padding-top: 0;
+    margin-top: 0.25rem;
   }
 }
