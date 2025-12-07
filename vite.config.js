@@ -10,7 +10,7 @@ export default defineConfig({
         name: "Weather Facts",
         short_name: "Weather",
         description: "The world's most boring weather app",
-        theme_color: "#000000",
+        theme_color: "#c6c6c6",
         background_color: "#ffffff",
         icons: [
           {
@@ -20,6 +20,7 @@ export default defineConfig({
             purpose: "any maskable",
           },
         ],
+        display: "standalone",
       },
       workbox: {
         globPatterns: ["**/*.{js,css,html,ico,png,svg}"],

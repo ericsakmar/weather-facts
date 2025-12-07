@@ -51,7 +51,7 @@ Alpine.data("weather", () => ({
       );
       document
         .querySelector('meta[name="theme-color"]')
-        .setAttribute("content", isDark ? "#000000" : "#ffffff");
+        .setAttribute("content", isDark ? "#121212" : "#c6c6c6");
     };
 
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
