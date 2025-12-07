@@ -12,8 +12,8 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
-    <script type="module" crossorigin src="/weather-facts/assets/index-Co2W--e7.js"></script>
-    <link rel="stylesheet" crossorigin href="/weather-facts/assets/index-B8DqVvBj.css">
+    <script type="module" crossorigin src="/weather-facts/assets/index-o_xxh4qW.js"></script>
+    <link rel="stylesheet" crossorigin href="/weather-facts/assets/index-DckG0Llk.css">
   <link rel="manifest" href="/weather-facts/manifest.webmanifest"></head>
 
   <body>
@@ -155,7 +155,7 @@
             <h2>Hourly</h2>
           </div>
 
-          <div class="hourly">
+          <div class="hourly" x-ref="hourly">
             <template x-for="hour in hourly">
               <div class="hourly-item">
                 <div
@@ -188,6 +188,13 @@
         <button @click="nextDay()">Next</button>
       </div>
     </div>
+
+    <p class="footer">
+      Forecast data provided by
+      <a href="https://open-meteo.com/" target="_blank" rel="noopener"
+        >Open-Meteo</a
+      >.
+    </p>
 
   </body>
 </html>
